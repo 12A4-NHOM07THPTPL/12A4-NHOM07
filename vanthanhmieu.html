@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <title>Văn Thánh Miếu Vĩnh Long</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div id="loader"><div class="spinner"></div></div>
+<div id="progress-bar"></div>
+<div id="cursor-glow"></div>
+
+<header>
+  <div class="logo-container">
+    <img src="img/logo-truong.png" alt="Logo Trường" class="school-logo">
+  </div>
+  <h1>Văn Thánh Miếu</h1>
+  <nav>
+    <a href="index.html">Trang chủ</a>
+    <a href="gioithieu.html">Giới thiệu</a>
+    <a href="chude.html">Chủ đề</a>
+    <a href="vanthanhmieu.html" class="active">Di tích</a>
+    <button id="themeToggle">🌙</button>
+  </nav>
+</header>
+
+<a href="chude.html" class="back-btn">⬅</a>
+
+<section class="hero small">
+  <div class="hero-content">
+    <h1 class="float">Văn Thánh Miếu Vĩnh Long</h1>
+    <p class="delay1 float">
+      Biểu tượng của truyền thống hiếu học và đạo lý tôn sư trọng đạo tại Nam Bộ.
+    </p>
+  </div>
+</section>
+
+<section class="reveal">
+  <h2>📜 Giới thiệu & lịch sử</h2>
+  <p>
+    Văn Thánh Miếu Vĩnh Long, còn gọi là Văn Miếu Vĩnh Long, được xây dựng vào thế kỷ XIX
+    nhằm thờ Khổng Tử và các bậc hiền triết Nho giáo. Đây là một trong những công trình tiêu biểu
+    phản ánh truyền thống hiếu học, coi trọng tri thức và đạo đức của người dân vùng Nam Bộ.
+  </p>
+  <p>
+    Trải qua nhiều biến động lịch sử và chiến tranh, Văn Thánh Miếu từng bị hư hại nhưng đã được
+    trùng tu, bảo tồn để giữ gìn giá trị văn hóa – giáo dục cho các thế hệ mai sau.
+    Ngày nay, nơi đây không chỉ là di tích lịch sử mà còn là không gian sinh hoạt văn hóa,
+    tổ chức lễ hội, hoạt động giáo dục và tham quan du lịch.
+  </p>
+</section>
+
+<section class="reveal">
+  <h2>🖼️ Hình ảnh nổi bật</h2>
+  <div class="grid gallery">
+    <img src="img/vanthanh1.jpg" class="card">
+    <img src="img/vanthanh2.jpg" class="card">
+    <img src="img/vanthanh3.jpg" class="card">
+    <img src="img/vanthanh4.jpg" class="card">
+  </div>
+</section>
+
+<section class="reveal">
+  <h2>📌 Thông tin nhanh</h2>
+  <div class="grid">
+    <div class="card"><b>Địa chỉ:</b><br>Phường 4, TP. Vĩnh Long, tỉnh Vĩnh Long</div>
+    <div class="card"><b>Năm xây dựng:</b><br>Thế kỷ XIX</div>
+    <div class="card"><b>Phân loại:</b><br>Di tích kiến trúc – văn hóa</div>
+    <div class="card"><b>Giờ mở cửa:</b><br>7h00 – 17h00 hằng ngày</div>
+  </div>
+</section>
+
+<section class="reveal">
+  <h2>🗺️ Bản đồ vị trí</h2>
+  <div class="map-box">
+    <iframe
+      src="https://www.google.com/maps?q=Văn%20Thánh%20Miếu%20Vĩnh%20Long&output=embed"
+      loading="lazy"></iframe>
+  </div>
+</section>
+
+<footer>
+  <p>© 2026 | Website Di tích Lịch sử & Văn hóa Nam Bộ</p>
+</footer>
+
+<button id="backToTop">↑</button>
+
+<script>
+/* ===== SCRIPT CHUNG ===== */
+window.addEventListener("load", () => {
+  const loader = document.getElementById("loader");
+  if (loader) loader.classList.add("hide");
+});
+
+const toggle = document.getElementById("themeToggle");
+if (toggle) {
+  toggle.addEventListener("click", () => {
+    document.documentElement.classList.toggle("dark");
+    localStorage.setItem("theme",
+      document.documentElement.classList.contains("dark") ? "dark" : "light"
+    );
+  });
+}
+if (localStorage.getItem("theme") === "dark") {
+  document.documentElement.classList.add("dark");
+}
+
+const backToTop = document.getElementById("backToTop");
+if (backToTop) {
+  window.addEventListener("scroll", () => {
+    backToTop.style.display = window.scrollY > 400 ? "block" : "none";
+  });
+  backToTop.onclick = () => window.scrollTo({ top: 0, behavior: "smooth" });
+}
+
+const progressBar = document.getElementById("progress-bar");
+if (progressBar) {
+  window.addEventListener("scroll", () => {
+    const scrollTop = document.documentElement.scrollTop;
+    const scrollHeight = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+    progressBar.style.width = (scrollTop / scrollHeight) * 100 + "%";
+  });
+}
+
+const reveals = document.querySelectorAll(".reveal");
+if (reveals.length) {
+  const revealObserver = new IntersectionObserver(entries => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) entry.target.classList.add("show");
+    });
+  }, { threshold: 0.15 });
+  reveals.forEach(el => revealObserver.observe(el));
+}
+
+const glow = document.getElementById("cursor-glow");
+if (glow) {
+  document.addEventListener("mousemove", e => {
+    glow.style.left = e.clientX + "px";
+    glow.style.top = e.clientY + "px";
+  });
+}
+</script>
+
+</body>
+</html>
